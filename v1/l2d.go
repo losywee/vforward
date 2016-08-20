@@ -46,8 +46,8 @@ func (lds *L2DSwap) connTCP(lconn net.Conn) {
     if err != nil {
         lds.currUseConn-=2
         //远程连接不通，关闭请求连接
-        fmt.Println("L2DSwap.connTCP: ", err)
         lconn.Close()
+        lds.ld.logf("L2DSwap.connTCP", "本地 %s 向远程 %s 发起请求失败: %v", lds.raddr.Local.String(), lds.raddr.Remote.String(), err)
         return
     }
 

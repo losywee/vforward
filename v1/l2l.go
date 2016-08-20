@@ -126,10 +126,7 @@ type L2L struct {
 }
 func (ll *L2L) init(){
     ll.acp.IdeConn=ll.KeptIdeConn
-    ll.acp.MaxConn=ll.MaxConn
-
     ll.bcp.IdeConn=ll.KeptIdeConn
-    ll.bcp.MaxConn=ll.MaxConn
 }
 
 //当前连接数量

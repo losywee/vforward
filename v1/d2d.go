@@ -146,10 +146,7 @@ type D2D struct {
 //初始化
 func (dd *D2D) init(){
     dd.acp.IdeConn  = dd.KeptIdeConn
-    dd.acp.MaxConn  = dd.MaxConn
-
     dd.bcp.IdeConn  = dd.KeptIdeConn
-    dd.bcp.MaxConn  = dd.MaxConn
 }
 
 //Transport 建立连接，支持协议类型："tcp", "tcp4","tcp6", "unix", "unixpacket"。其它还没测试支持："udp", "udp4", "udp6", "ip", "ip4", "ip6", "unixgram"
