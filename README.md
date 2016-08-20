@@ -1,4 +1,4 @@
-# vforward [![Build Status](https://travis-ci.org/456vv/vconnpool.svg?branch=master)](https://travis-ci.org/456vv/vconnpool)
+# vforward [![Build Status](https://travis-ci.org/456vv/vforward.svg?branch=master)](https://travis-ci.org/456vv/vforward)
 go/golang TCP/UDP port forwarding，端口转发，主动连接，被动连接，大多用于内网端口反弹。
 <br/>
 最近更新20160820：<a href="/v1/update.txt">update.txt</a>
@@ -48,61 +48,3 @@ go/golang TCP/UDP port forwarding，端口转发，主动连接，被动连接�
         func (lls *L2LSwap) ConnNum() int                                           // 当前连接数
         func (lls *L2LSwap) Swap() error                                            // 开始交换
 <br/>
-使用方法：
-====================
-例1：
-
-    func main(){
-        cp := &ConnPool{
-            IdeConn:5,
-            MaxConn:2,
-        }
-        defer cp.Close()
-        conn, err := cp.Dial("tcp", "www.baidu.com:80")
-        fmt.Println(conn, err)
-    }
-
-例2：
-
-    func main(){
-        cp := &ConnPool{
-            IdeConn:5,
-            MaxConn:2,
-        }
-        defer cp.Close()
-        conn, err := net.Dial("tcp", "www.baidu.com:80")
-        fmt.Println(conn, err)
-        err = cp.Add(conn.RemoteAddr(), conn)
-        fmt.Println(err)
-        conn, err = cp.Get(conn.RemoteAddr())
-        fmt.Println(conn, err)
-    }
-
-例3：
-
-    func Test_ConnPool_5(t *testing.T){
-        cp := &ConnPool{
-            IdeConn:5,
-            MaxConn:2,
-        }
-        defer cp.Close()
-        conn, err := cp.Dial("tcp", "www.baidu.com:80")
-        if err != nil {t.Fatal(err)}
-        conn.Close()
-
-        conn, err = cp.Dial("tcp", "www.baidu.com:80")
-        if err != nil {t.Fatal(err)}
-        c, ok := conn.(Conn)
-        if !ok {
-            t.Fatal("不支持转换为 Conn 接口")
-        }
-        if cp.ConnNum() != 1 {
-            t.Fatalf("池里的连接数量不符，返回为：%d，预设为：1", cp.ConnNum())
-        }
-        c.Discard()
-        c.Close()
-        if cp.ConnNum() != 0 {
-            t.Fatalf("池里的连接数量不符，返回为：%d，预设为：0", cp.ConnNum())
-        }
-    }
-
