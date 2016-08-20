@@ -18,12 +18,12 @@ func Test_D2D_0(t *testing.T){
     addra := &Addr{
         Network:"tcp",
         Local: &net.TCPAddr{IP: net.ParseIP("127.0.0.1"),Port: 0,},
-        Remote: &net.TCPAddr{IP: net.ParseIP("127.0.0.1"),Port: 1234,},
+        Remote: &net.TCPAddr{IP: net.ParseIP("127.0.0.1"),Port: 1201,},
     }
     addrb := &Addr{
         Network:"tcp",
         Local: &net.TCPAddr{IP: net.ParseIP("127.0.0.1"),Port: 0,},
-        Remote: &net.TCPAddr{IP: net.ParseIP("127.0.0.1"),Port: 4321,},
+        Remote: &net.TCPAddr{IP: net.ParseIP("127.0.0.1"),Port: 1202,},
     }
 
     //服务器
@@ -105,11 +105,11 @@ func Test_L2D_0(t *testing.T){
     dial := &Addr{
         Network:"tcp",
         Local: &net.TCPAddr{IP: net.ParseIP("127.0.0.1"),Port: 0,},
-        Remote: &net.TCPAddr{IP: net.ParseIP("127.0.0.1"),Port: 2345,},
+        Remote: &net.TCPAddr{IP: net.ParseIP("127.0.0.1"),Port: 1203,},
     }
     listen := &Addr{
         Network:"tcp",
-        Local: &net.TCPAddr{IP: net.ParseIP("127.0.0.1"),Port: 5432,},
+        Local: &net.TCPAddr{IP: net.ParseIP("127.0.0.1"),Port: 1204,},
     }
 
     //服务器
@@ -195,11 +195,11 @@ func Test_L2D_1(t *testing.T){
     dial := &Addr{
         Network:"udp",
         Local: &net.UDPAddr{IP: net.ParseIP("127.0.0.1"),Port: 0,},
-        Remote: &net.UDPAddr{IP: net.ParseIP("127.0.0.1"),Port: 2346,},
+        Remote: &net.UDPAddr{IP: net.ParseIP("127.0.0.1"),Port: 1205,},
     }
     listen := &Addr{
         Network:"udp",
-        Local: &net.UDPAddr{IP: net.ParseIP("127.0.0.1"),Port: 5431,},
+        Local: &net.UDPAddr{IP: net.ParseIP("127.0.0.1"),Port: 1206,},
     }
 
     //服务器
@@ -281,11 +281,11 @@ func Test_L2D_1(t *testing.T){
 func Test_L2L_0(t *testing.T){
     addra := &Addr{
         Network: "tcp",
-        Local: &net.TCPAddr{IP: net.ParseIP("127.0.0.1"),Port: 2347,},
+        Local: &net.TCPAddr{IP: net.ParseIP("127.0.0.1"),Port: 1207,},
     }
     addrb := &Addr{
         Network: "tcp",
-        Local: &net.TCPAddr{IP: net.ParseIP("127.0.0.1"),Port: 2348,},
+        Local: &net.TCPAddr{IP: net.ParseIP("127.0.0.1"),Port: 1208,},
     }
     ll := &L2L{
         MaxConn:5,
