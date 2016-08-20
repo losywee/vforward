@@ -1,4 +1,4 @@
-package vnetforward
+package vforward
 
 import (
 	"net"
