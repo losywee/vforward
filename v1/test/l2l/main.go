@@ -18,7 +18,7 @@ var fKeptIdeConn = flag.Int("KeptIdeConn", 2, "保持一方连接数量，以备
 var fReadBufSize = flag.Int("ReadBufSize", 4096, "交换数据缓冲大小。单位：字节")
 
 
-//commandline:l2l-main.exe -ALocal 127.0.0.1:1201 -BLocal 127.0.0.1:1202
+//commandline:l2l-main.exe -ALocal 127.0.0.1:1201 -BLocal 127.0.0.1:1202 -Network d
 func main(){
     flag.Parse()
     if flag.NFlag() == 0 {
@@ -30,6 +30,13 @@ func main(){
         log.Printf("地址未填，A监听地址 %q, B监听地址 %q", *fALocal, *fBLocal)
         return
     }
+    switch *fNetwork {
+    	case "tcp", "tcp4", "tcp6":
+        default:
+            log.Printf("网络地址类型  %q 是未知的，日前仅支持：tcp/tcp4/tcp6", *fNetwork)
+            return
+    }
+
     addr1, err := net.ResolveTCPAddr(*fNetwork, *fALocal)
     if err != nil {
         log.Println(err)
@@ -69,7 +76,7 @@ func main(){
 
         var in0 string
         for err == nil  {
-            log.Println("输入任何字符可以退出L2D!")
+            log.Println("输入任何字符，并回车可以退出L2D!")
             fmt.Scan(&in0)
             if in0 != "" {
                 return
