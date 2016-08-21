@@ -3,9 +3,8 @@ go/golang TCP/UDP port forwarding，端口转发，主动连接，被动连接�
 <br/>
 最近更新20160821：<a href="/v1/update.txt">update.txt</a>
 <br/>
-已编译好的二进制文件下载：<a href="raw/master/v1/test/bin/vforward.zip">vforward.zip</a>
+已编译好的二进制文件下载：<a href="../../raw/master/v1/test/bin/vforward.zip">vforward.zip</a>
 <br/>
-
 D2D 命令行：
 ====================
 内网开放端口，外网无法访问的情况下。内网使用D2D主动连接外网端口。以便外网发来数据转发到内网端口中去。<br/>
