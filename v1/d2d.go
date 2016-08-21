@@ -128,6 +128,7 @@ type D2D struct {
     MaxConn         int                     // 限制连接最大的数量
     KeptIdeConn     int                     // 保持一方连接数量，以备快速互相连接。
     ReadBufSize     int                     // 交换数据缓冲大小
+    Timeout         time.Duration           // 发起连接超时
     ErrorLog        *log.Logger             // 日志
 
     acp             vconnpool.ConnPool      // A方连接池
@@ -202,6 +203,15 @@ func (dd *D2D) bGetConn() (net.Conn, error) {
     return dd.bcp.Get(dd.baddr.Remote)
 }
 
+func (dd *D2D) dial(cp *vconnpool.ConnPool, addr *Addr){
+    netDialer := net.Dialer{LocalAddr: addr.Local, Timeout: dd.Timeout}
+    conn, err := netDialer.Dial(addr.Network, addr.Remote.String())
+    if err != nil {
+        return
+    }
+    cp.Add(conn.RemoteAddr(), conn)
+}
+
 //缓冲连接，保持可用的连接数量
 func (dd *D2D) bufConn(tick *time.Ticker, cp *vconnpool.ConnPool, addr *Addr){
     for {
@@ -217,14 +227,8 @@ func (dd *D2D) bufConn(tick *time.Ticker, cp *vconnpool.ConnPool, addr *Addr){
                 if dd.currUseConns()+cp.ConnNum() >= dd.MaxConn || cp.ConnNum() >= dd.KeptIdeConn {
                     continue
                 }
-                //创建连接
-                netDialer := net.Dialer{LocalAddr: addr.Local}
-                conn, err := netDialer.Dial(addr.Network, addr.Remote.String())
-                if err != nil {
-                    dd.logf("D2D.bufConn", "本地 %s 向远程 %s 发起请求失败: %v", addr.Local, addr.Remote, err)
-                    continue
-                }
-                cp.Add(conn.RemoteAddr(), conn)
+                //异步创建连接
+                dd.dial(cp, addr)
         }
     }
 }

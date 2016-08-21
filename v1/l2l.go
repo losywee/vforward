@@ -39,7 +39,13 @@ func (lls *L2LSwap) Swap() error {
     if lls.ll.ReadBufSize == 0 {
         bufSize = DefaultReadBufSize
     }
+
+    var wait, maxDelay time.Duration = 0, time.Second
+
     for  {
+        //延时
+        wait = delay(wait, maxDelay)
+
         //程序退出
         if lls.closed {
             return nil
@@ -61,6 +67,8 @@ func (lls *L2LSwap) Swap() error {
                 conna.Close()
                 continue
             }
+
+            wait = 0
             lls.ll.currUseConn++
 
             //记录当前连接

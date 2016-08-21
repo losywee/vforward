@@ -15,20 +15,25 @@ type Addr struct {
 	Local, Remote   net.Addr        // 本地，远程
 }
 
-func temporaryError(err error, delay time.Duration, maxDelay time.Duration)(time.Duration, bool) {
+
+func temporaryError(err error, wait time.Duration, maxDelay time.Duration)(time.Duration, bool) {
     if ne, ok := err.(net.Error); ok && ne.Temporary() {
-    	if delay == 0 {
-    		delay = 5 * time.Millisecond
-    	} else {
-    		delay *= 2
-    	}
-    	if max := 1 * maxDelay; delay > max {
-    		delay = max
-    	}
-    	time.Sleep(delay)
-    	return delay, true
+    	return delay(wait, maxDelay), true
     }
-    return delay, false
+    return wait, false
+}
+
+func delay(wait, maxDelay time.Duration) time.Duration {
+	if wait == 0 {
+		wait = 5 * time.Millisecond
+	} else {
+		wait *= 2
+	}
+	if max := 1 * maxDelay; wait > max {
+	    wait = max
+	}
+	time.Sleep(wait)
+    return wait
 }
 
 func copyData(dst io.Writer, src io.ReadCloser, bufferSize int)(written int64, err error){

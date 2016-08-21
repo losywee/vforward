@@ -60,7 +60,6 @@ func Test_D2D_0(t *testing.T){
     }()
     <-funcgo
 
-
     //客户端
     dd := &D2D{
         TryConnTime: time.Millisecond,
@@ -178,7 +177,7 @@ func Test_L2D_0(t *testing.T){
         }
         lds.Close()
         //异步关闭需要等一会
-        time.Sleep(time.Second*3)
+        time.Sleep(time.Second*4)
         if lds.ConnNum() != 0 {
             t.Logf("还有连接没有被关闭。返回为：%d，预计为：0",  lds.ConnNum())
         }
