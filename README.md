@@ -1,7 +1,7 @@
 # vforward [![Build Status](https://travis-ci.org/456vv/vforward.svg?branch=master)](https://travis-ci.org/456vv/vforward)
 go/golang TCP/UDP port forwarding，端口转发，主动连接，被动连接，大多用于内网端口反弹。
 <br/>
-最近更新20160820：<a href="/v1/update.txt">update.txt</a>
+最近更新20160821：<a href="/v1/update.txt">update.txt</a>
 <br/>
 列表：
 ====================
@@ -14,6 +14,7 @@ go/golang TCP/UDP port forwarding，端口转发，主动连接，被动连接�
         TryConnTime time.Duration                                                   // 尝试或发起连接时间，可能一方不在线，会一直尝试连接对方。
         MaxConn     int                                                             // 限制连接最大的数量
         KeptIdeConn int                                                             // 保持一方连接数量，以备快速互相连接。
+        Timeout     time.Duration           										// 发起连接超时
         ReadBufSize int                                                             // 交换数据缓冲大小
         ErrorLog    *log.Logger                                                     // 日志
     }
