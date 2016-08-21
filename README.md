@@ -14,11 +14,11 @@ D2D 命令行：
     |A内网|  →  |A内网-D2D|  →  |B外网|（3，A内网收到数据再发出数据，由[A内网-D2D]转发到B外网。）
 
 ####命令行：
-    -ALemote string
+    -ARemote string
           A端远程请求连接地址 (format "12.13.14.15:123")
     -ALocal string
           A端本地发起连接地址 (default "0.0.0.0")
-    -BLemote string
+    -BRemote string
           B端远程请求连接地址 (format "22.23.24.25:234")
     -BLocal string
           B端本地发起连接地址 (default "0.0.0.0")
